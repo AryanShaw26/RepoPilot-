@@ -1,0 +1,54 @@
+# ===== Secrets & environment (CRITICAL) =====
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials*.json
+service-account*.json
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ===== Node / Frontend =====
+node_modules/
+dist/
+build/
+.vite/
+.vercel/
+*.tsbuildinfo
+coverage/
+
+# ===== App data (snapshots of analysed repos, local DB dumps) =====
+.data/
+snapshots/
+*.sqlite
+*.dump
+*.sql.bak
+pgdata/
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ===== Docker =====
+docker-compose.override.yml
