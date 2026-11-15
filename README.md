@@ -33,6 +33,15 @@ Configure `backend/.env` and `frontend/.env` from their `.env.example` files.
 The backend's `DATABASE_URL` must identify the local PostgreSQL database; the app
 normalizes supported PostgreSQL URL schemes to the asyncpg driver.
 
+The backend supports Anthropic, OpenAI, and Gemini for LLM requests. Set
+`LLM_PROVIDER`, `LLM_API_KEY`, and `LLM_MODEL` together. Embeddings support OpenAI
+and Gemini through `EMBEDDING_PROVIDER`, `EMBEDDING_API_KEY`, and `EMBEDDING_MODEL`;
+Gemini requests the configured `EMBEDDING_DIM` output size. Gemini LLM responses
+are requested as JSON and still pass schema validation with one repair attempt.
+Transient provider responses (429/5xx) receive at most two retries; other HTTP
+errors fail immediately. Semantic search makes no embedding requests when pgvector
+is unavailable.
+
 ## Validation
 
 From the repository root:

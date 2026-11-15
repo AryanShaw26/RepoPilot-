@@ -25,6 +25,7 @@ class HealthResponse(BaseModel):
 class CapabilitiesResponse(BaseModel):
     semantic_search: bool
     llm_available: bool
+    llm_unavailable_reason: Optional[str] = None
     llm_provider: str
     embedding_provider: str
     max_repo_size_mb: int

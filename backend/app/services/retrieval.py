@@ -78,7 +78,8 @@ def calculate_evidence_strength(
 class RetrievalService:
     @staticmethod
     async def semantic_storage_available(db: AsyncSession) -> bool:
-        if not settings.FEATURE_SEMANTIC_SEARCH or not settings.EMBEDDING_API_KEY:
+        if (not settings.FEATURE_SEMANTIC_SEARCH or not settings.EMBEDDING_API_KEY
+                or settings.EMBEDDING_PROVIDER.lower() not in {"openai", "gemini"}):
             return False
 
         result = await db.execute(

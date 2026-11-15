@@ -13,6 +13,7 @@ from app.core.config import get_settings
 from app.core.logging import logger
 from app.db.models import CodeChunk, RepoFile, Symbol
 from app.schemas.search import SearchFilters, SearchResultItem
+from app.services.secrets import scan_for_secrets, should_exclude_path
 
 _RIPGREP_UNAVAILABLE_LOGGED = False
 
@@ -129,6 +130,7 @@ async def search_ripgrep(
 
     results: List[SearchResultItem] = []
     lines_by_file: Dict[str, List[Dict[str, Any]]] = {}
+    sensitivity_by_file: Dict[str, bool] = {}
 
     for line in stdout.decode("utf-8", errors="replace").splitlines():
         if not line:
@@ -142,6 +144,21 @@ async def search_ripgrep(
             payload = data.get("data", {})
             fpath_raw = payload.get("path", {}).get("text", "")
             rel_path = os.path.relpath(fpath_raw, snapshot_dir).replace("\\", "/")
+
+            # ripgrep searches the raw snapshot, so enforce ingestion's secret/path
+            # rules here as well before any match can become search evidence.
+            if should_exclude_path(rel_path):
+                continue
+
+            if rel_path not in sensitivity_by_file:
+                full_path = os.path.join(snapshot_dir, *rel_path.split("/"))
+                try:
+                    with open(full_path, "r", encoding="utf-8", errors="replace") as source_file:
+                        sensitivity_by_file[rel_path] = scan_for_secrets(source_file.read(), rel_path)
+                except OSError:
+                    sensitivity_by_file[rel_path] = True
+            if sensitivity_by_file[rel_path]:
+                continue
 
             if filters and filters.path_prefix and not rel_path.startswith(filters.path_prefix):
                 continue

@@ -672,12 +672,12 @@ GITHUB_API_BASE=https://api.github.com
 GITHUB_REQUEST_TIMEOUT_S=30
 
 # ---------- LLM & Embeddings ----------
-LLM_PROVIDER=anthropic              # anthropic | openai
+LLM_PROVIDER=anthropic              # anthropic | openai | gemini
 LLM_API_KEY=
 LLM_MODEL=                          # set to a current model id from your provider
 LLM_MAX_OUTPUT_TOKENS=2000
 LLM_TEMPERATURE=0.2
-EMBEDDING_PROVIDER=openai
+EMBEDDING_PROVIDER=openai           # openai | gemini
 EMBEDDING_API_KEY=
 EMBEDDING_MODEL=text-embedding-3-small
 EMBEDDING_DIM=1536
@@ -704,6 +704,15 @@ RATE_LIMIT_ANALYSE=5/hour
 RATE_LIMIT_LLM=30/hour
 RATE_LIMIT_DEFAULT=120/minute
 ```
+
+Supported LLM providers are `anthropic`, `openai`, and `gemini`; supported embedding
+providers are `openai` and `gemini`. Gemini uses the configured `LLM_API_KEY` and
+`LLM_MODEL`, requests JSON MIME output, and sends responses through the same schema
+validator and one repair attempt (§9.6). Gemini embeddings use `EMBEDDING_API_KEY`,
+`EMBEDDING_MODEL`, and `EMBEDDING_DIM` as the requested output dimensionality.
+Unsupported providers disable the relevant capability with a clear reason and make
+no provider requests. Provider HTTP retries are limited to 429/5xx, with at most two
+retries; 4xx responses are never retried.
 
 ### 11.2 Frontend `.env.example`
 

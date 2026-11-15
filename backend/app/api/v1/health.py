@@ -9,11 +9,20 @@ from app.db.session import get_engine
 from app.schemas.common import CapabilitiesResponse, HealthResponse
 
 router = APIRouter(tags=["Health & Meta"])
-SUPPORTED_LLM_PROVIDERS = {"anthropic", "openai"}
+SUPPORTED_LLM_PROVIDERS = {"anthropic", "openai", "gemini"}
+SUPPORTED_EMBEDDING_PROVIDERS = {"openai", "gemini"}
 
 
 def _llm_available() -> bool:
     return bool(settings.LLM_API_KEY) and settings.LLM_PROVIDER.lower() in SUPPORTED_LLM_PROVIDERS
+
+
+def _llm_unavailable_reason() -> str | None:
+    if settings.LLM_PROVIDER.lower() not in SUPPORTED_LLM_PROVIDERS:
+        return f"Unsupported LLM provider: {settings.LLM_PROVIDER}"
+    if not settings.LLM_API_KEY:
+        return "LLM_API_KEY is not configured"
+    return None
 
 
 @router.get("/health", response_model=HealthResponse)
@@ -24,6 +33,7 @@ async def health_check(request: Request):
         getattr(request.app.state, "semantic_enabled", False)
         and settings.FEATURE_SEMANTIC_SEARCH
         and bool(settings.EMBEDDING_API_KEY)
+        and settings.EMBEDDING_PROVIDER.lower() in SUPPORTED_EMBEDDING_PROVIDERS
     )
     if getattr(request.app.state, "testing", False):
         db_ok = getattr(request.app.state, "db", False)
@@ -67,11 +77,13 @@ async def get_capabilities(request: Request):
         getattr(request.app.state, "semantic_enabled", False)
         and settings.FEATURE_SEMANTIC_SEARCH
         and bool(settings.EMBEDDING_API_KEY)
+        and settings.EMBEDDING_PROVIDER.lower() in SUPPORTED_EMBEDDING_PROVIDERS
     )
 
     return CapabilitiesResponse(
         semantic_search=semantic_enabled and bool(settings.EMBEDDING_API_KEY),
         llm_available=_llm_available(),
+        llm_unavailable_reason=_llm_unavailable_reason(),
         llm_provider=settings.LLM_PROVIDER,
         embedding_provider=settings.EMBEDDING_PROVIDER,
         max_repo_size_mb=settings.MAX_REPO_SIZE_MB,

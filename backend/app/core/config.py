@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     GITHUB_REQUEST_TIMEOUT_S: float = 30.0
 
     # LLM & Embeddings
-    LLM_PROVIDER: str = "anthropic"  # anthropic | openai
+    LLM_PROVIDER: str = "anthropic"  # anthropic | openai | gemini
     LLM_API_KEY: Optional[str] = None
     LLM_MODEL: str = "claude-3-5-sonnet-20241022"
     LLM_MAX_OUTPUT_TOKENS: int = 2000
