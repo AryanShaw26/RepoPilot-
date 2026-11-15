@@ -1,0 +1,90 @@
+@import "./tokens.css";
+@import "./neumorph.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--ink);
+    font-family: 'Figtree', system-ui, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Barlow Semi Condensed', 'Arial Narrow', sans-serif;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    line-height: 1.6;
+  }
+
+  /* Mandatory Accessibility Focus Ring */
+  :focus-visible {
+    outline: 3px solid var(--brand) !important;
+    outline-offset: 3px !important;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .led-amber {
+    animation: none !important;
+  }
+  .skeleton-shimmer::after {
+    animation: none !important;
+  }
+}
+
+.panel-raised {
+  background: var(--surface-raised);
+  box-shadow: var(--elev-1);
+}
+
+.panel-sunken {
+  background: var(--surface-inset);
+  box-shadow: var(--inset-1);
+}
+
+.panel-instrument {
+  background: linear-gradient(180deg, var(--glass), color-mix(in srgb, var(--glass) 88%, black));
+  box-shadow: var(--inset-2), var(--elev-1);
+  color: var(--glass-ink);
+}
+
+.placard {
+  background:
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--metal-hi) 18%, transparent) 0 1px, transparent 1px 2px),
+    linear-gradient(180deg, var(--metal-hi), var(--metal-lo));
+  border: 1px solid var(--edge);
+  border-radius: var(--r-sm);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--metal-hi) 80%, transparent), var(--elev-1);
+}
+
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
+}

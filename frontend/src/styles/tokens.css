@@ -1,0 +1,89 @@
+:root {
+  /* Light theme — default */
+  --surface: #DFE4EA;
+  --surface-rgb: 223 228 234;
+  --surface-raised: #E6EBF1;
+  --surface-raised-rgb: 230 235 241;
+  --surface-inset: #D5DBE3;
+  --surface-inset-rgb: 213 219 227;
+  --shadow-light: #FFFFFF;
+  --shadow-dark: #B4BDC9;
+  --ink: #1F2933;
+  --ink-rgb: 31 41 51;
+  --ink-muted: #4A5766;
+  --ink-muted-rgb: 74 87 102;
+  --ink-faint: #6B7888;
+  --ink-faint-rgb: 107 120 136;
+  --edge: #9AA5B4;
+  --edge-rgb: 154 165 180;
+  --brand: #1F5EFF;
+  --brand-rgb: 31 94 255;
+  --brand-deep: #1743B8;
+  --brand-deep-rgb: 23 67 184;
+  --accent-ink: #FFFFFF;
+  --accent-ink-rgb: 255 255 255;
+  --focus: #1F5EFF;
+  --focus-rgb: 31 94 255;
+  --led-green: #1FA36A;
+  --led-green-rgb: 31 163 106;
+  --led-amber: #F2A100;
+  --led-amber-rgb: 242 161 0;
+  --led-red: #D93B3B;
+  --led-red-rgb: 217 59 59;
+  --led-blue: #2874A6;
+  --led-blue-rgb: 40 116 166;
+  --glass: #0F1720;
+  --glass-rgb: 15 23 32;
+  --glass-ink: #D7E2EE;
+  --glass-ink-rgb: 215 226 238;
+  --metal-hi: #F4F6F9;
+  --metal-hi-rgb: 244 246 249;
+  --metal-lo: #B9C1CC;
+  --metal-lo-rgb: 185 193 204;
+
+  /* Neumorphic Shadows */
+  --elev-1: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+  --elev-2: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
+  --elev-3: 14px 14px 30px var(--shadow-dark), -14px -14px 30px var(--shadow-light);
+  --inset-1: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+  --inset-2: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+  --r-round: 50%;
+}
+
+[data-theme="dark"] {
+  --surface: #232A33;
+  --surface-rgb: 35 42 51;
+  --surface-raised: #2A323C;
+  --surface-raised-rgb: 42 50 60;
+  --surface-inset: #1C2229;
+  --surface-inset-rgb: 28 34 41;
+  --shadow-light: #323B47;
+  --shadow-dark: #141A20;
+  --ink: #E8EEF5;
+  --ink-rgb: 232 238 245;
+  --ink-muted: #B3BFCC;
+  --ink-muted-rgb: 179 191 204;
+  --ink-faint: #8896A6;
+  --ink-faint-rgb: 136 150 166;
+  --edge: #46515F;
+  --edge-rgb: 70 81 95;
+  --brand: #5B8CFF;
+  --brand-rgb: 91 140 255;
+  --brand-deep: #3F70E8;
+  --brand-deep-rgb: 63 112 232;
+  --accent-ink: #101820;
+  --accent-ink-rgb: 16 24 32;
+  --focus: #8FB0FF;
+  --focus-rgb: 143 176 255;
+  --led-blue: #71B7E2;
+  --led-blue-rgb: 113 183 226;
+  --glass: #0B1118;
+  --glass-rgb: 11 17 24;
+  --glass: #0B1118;
+}
